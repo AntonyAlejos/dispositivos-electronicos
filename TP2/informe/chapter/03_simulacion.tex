@@ -1,1 +1,632 @@
 \chapter{Simulación en LTspice}
+
+\section{Polarización en directa}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/CircuitoDiodoPolDir.png}
+    \caption{Circuito de diodo 1N4007 polarizado en directa}
+    \label{fig:CircuitoDiodoPolDir}
+\end{figure}
+\begin{tcolorbox}[
+colback=gray!10,
+colframe=black,
+width=\textwidth,
+boxrule=0.5pt,
+title={Modelo SPICE del diodo 1N60},
+arc=0pt
+]
+\begin{verbatim}
+.dc V1 -2 10 100m
+.model 1N4007 D (IS=7.02767n RS=0.0341512 N=1.80803 EG=1.05743 XTI=5 
+BV=1000 IBV=5e-08 CJO=1e-11 VJ=0.7 M=0.5 FC=0.5 TT=1e-07 mfg=OnSemi 
+type=silicon)
+\end{verbatim}
+
+\end{tcolorbox}
+\begin{tcolorbox}[
+colback=gray!10,
+colframe=black,
+width=\textwidth,
+boxrule=0.5pt,
+title={Modelo SPICE del diodo 1N60},
+arc=0pt
+]
+\begin{verbatim}
+.dc V1 -2 10 100m
+.model 1N60 D (RS=50.0559 EG=1.11 XTI=3 VJ=0.8 M=0.1 FC=0.5 
+BV=40 CJO=1.75p IS=1.37773u N=2 TT=100n type=germanium)
+\end{verbatim}
+
+\end{tcolorbox}
+
+\subsection{Diodo 1N4007 polarizado en directa}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-0.1,
+    xmax=10,
+    xmin=-2,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+\addplot[
+    thick,
+    red
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N4007PolDir};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Curva del diodo 1N4007 en directa, obtenida por simulación}
+\end{figure}
+
+\subsection{Diodo 1N60 polarizado en directa}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-0.1,
+    xmax=10,
+    xmin=-2,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+\addplot[
+    thick,
+    blue
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N60PolDir};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Curva del diodo 1N60 en directa, obtenida por simulación}
+\end{figure}
+
+\subsection{Comparaciones}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=15cm,
+    height=10cm,
+    ymin=-0.01,
+    xmax=1,
+    xmin=-0.5,
+    xtick distance=0.1,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=both,
+    minor tick num=1,
+    legend pos=north west
+]
+
+% Primer diodo
+\addplot[
+    ultra thick,
+    blue
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N4007PolDir};
+
+% Segundo diodo
+\addplot[
+    ultra thick,
+    red
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N60PolDir};
+
+\legend{1N4007, 1N60}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación de curvas }
+\end{figure}
+
+A partir de las curvas obtenidas en polarización directa se observó que ambos diodos presentan un comportamiento aproximadamente lineal en gran parte del rango analizado, en lugar de la respuesta exponencial ideal esperada teóricamente. Esto se debe principalmente a la resistencia de 1k$\Omega$ conectada en serie con el diodo, la cual limita la corriente del circuito y hace que la relación entre tensión y corriente tienda a ser aproximadamente lineal para el rango de tensiones utilizado.
+
+Además, se observó que el diodo 1N60 comienza a conducir corriente para tensiones menores que el 1N4007, mientras que el 1N4007 requiere una tensión mayor para comenzar a conducir de manera apreciable.
+
+
+\section{Polarización en inversa}
+Para este caso se usaran los mismos modelos SPICE de Polarización directa. 
+\begin{tcolorbox}[
+colback=gray!10,
+colframe=black,
+width=\textwidth,
+boxrule=0.5pt,
+arc=0pt
+]
+\begin{verbatim}
+    Figura 3.5:
+        .dc V1 0 -1200 100m
+    Figura 3.9: 
+        .dc V1 10 -60 100m
+\end{verbatim}
+
+\end{tcolorbox}
+
+\subsection{Diodo 1N4007}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-5,
+    xmax=20,
+    xmin=-1200,
+    xtick distance=200,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+\addplot[
+    thick,
+    red
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N4007PolInv};
+\end{axis}
+\end{tikzpicture}
+\caption{1N4007 en inversa, obtenido por simulación}
+\end{figure}
+
+\subsection{Diodo 1N60}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-5,
+    xmax=10,
+    xmin=-60,
+    xtick distance=10,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+\addplot[
+    thick,
+    blue
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N60PolInv};
+\end{axis}
+\end{tikzpicture}
+\caption{1N60 en Inversa, obtenido por simulación}
+\end{figure}
+
+
+
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-5,
+    xmax=10,
+    xmin=-1050,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+
+% Primer diodo
+\addplot[
+    ultra thick,
+    blue
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N4007PolInv};
+
+% Segundo diodo
+\addplot[
+    ultra thick,
+    red
+]
+table[
+    col sep=tab,
+    header=true,
+    x index=0,
+    y expr=\thisrowno{1}*1000
+] {dataTex/1N60PolInv};
+
+\legend{1N4007, 1N60}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación 1N4007 vs 1N60}
+\end{figure}
+
+Mediante la simulación en polarización inversa se logró observar la diferencia en la tensión de ruptura de ambos diodos, obteniéndose aproximadamente \(BV=40\,V\) para el 1N60 y \(BV=1000\,V\) para el 1N4007, valores correspondientes a los 
+parámetros proporcionados por el fabricante en los modelos utilizados para la simulación. Esto permitió comprender el comportamiento de los diodos en la zona negativa a altas tensiones.
+
+\section{Comportamiento del diodo en función de la temperatura}
+Para este caso se usaran los mismos modelos SPICE de Polarización directa.
+\begin{tcolorbox}[
+colback=gray!10,
+colframe=black,
+width=\textwidth,
+boxrule=0.5pt,
+arc=0pt
+]
+\begin{verbatim}
+    Figura 3.8:
+        .step temp list 20 100 125 
+        .dc V1 0 3 0.01
+    Figura 3.9:
+        .step temp list 20 100 125 
+        .dc V1 -3 1 0.01
+\end{verbatim}
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+colback=gray!10,
+colframe=black,
+width=\textwidth,
+boxrule=0.5pt,
+arc=0pt
+]
+\begin{verbatim}
+    Figura 3.10: 
+        .step temp list 20 100 125
+        .dc V1 -2 3 0.01 
+\end{verbatim}
+
+\end{tcolorbox}
+
+\subsection{Temperatura en el diodo 1N4007}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-0.2,
+    xmax=3,
+    xmin=0,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+
+% 20°C
+\addplot[blue, ultra thick]
+table[
+col sep=tab,
+x index=0,
+comment chars={S},
+y expr=\thisrowno{1}*1000
+] {dataTex/1N4007Temp-dir-20};
+
+% 100°C
+\addplot[green!70!black, ultra thick]
+table[
+col sep=tab,
+x index=0,
+comment chars={S},
+y expr=\thisrowno{1}*1000
+] {dataTex/1N4007Temp-dir-100};
+
+% 125°C
+\addplot[red, ultra thick]
+table[
+col sep=tab,
+x index=0,
+comment chars={S},
+y expr=\thisrowno{1}*1000
+] {dataTex/1N4007Temp-dir-125};
+
+\legend{20°C,100°C,125°C}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación de curvas características}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-4,
+    ymax=4,
+    xmax=1,
+    xmin=-3,
+    enlarge y limits=false,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [muA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+    scaled y ticks=false,
+    yticklabel style={
+        /pgf/number format/fixed,
+        },
+]
+
+% 20°C
+\addplot[blue, ultra thick]
+table[
+col sep=tab,
+x index=0,
+y expr=\thisrowno{1}*1000000
+] {dataTex/1N4007Temp-inv-20};
+
+% 100°C
+\addplot[green!70!black, ultra thick]
+table[
+col sep=tab,
+x index=0,
+y expr=\thisrowno{1}*1000000
+] {dataTex/1N4007Temp-inv-100};
+
+% 125°C
+\addplot[red, ultra thick]
+table[
+col sep=tab,
+x index=0,
+y expr=\thisrowno{1}*1000000
+] {dataTex/1N4007Temp-inv-125};
+
+\legend{20°C,100°C,125°C}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación de curvas características}
+\end{figure}
+
+\subsection{Temperatura en el diodo 1N60}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-1,
+    xmax=3,
+    xmin=-2,
+    xlabel={$V_D$ [V]},
+    ylabel={$I_D$ [mA]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+
+% 20°C
+\addplot[blue, ultra thick]
+table[
+col sep=tab,
+x index=0,
+comment chars={S},
+y expr=\thisrowno{1}*1000
+] {dataTex/1N60Temp-20};
+
+% 100°C
+\addplot[green!70!black, ultra thick]
+table[
+col sep=tab,
+x index=0,
+comment chars={S},
+y expr=\thisrowno{1}*1000
+] {dataTex/1N60Temp-100};
+
+% 125°C
+\addplot[red, ultra thick]
+table[
+col sep=tab,
+x index=0,
+comment chars={S},
+y expr=\thisrowno{1}*1000
+] {dataTex/1N60Temp-125};
+
+\legend{20°C,100°C,125°C}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación de curvas características}
+\end{figure}
+
+\subsection{Análisis de resultados}
+
+En la Figura 3.9 se observa la característica en polarización directa del diodo para
+distintas temperaturas. A medida que la temperatura aumenta, la curva se desplaza hacia
+la izquierda, indicando que para un mismo voltaje se obtiene mayor corriente. Esto se
+debe a la reducción de la barrera de potencial y al aumento de portadores disponibles en
+la unión PN.
+
+En la Figura 3.10 se muestra el comportamiento en polarización inversa. Se observa
+una corriente de fuga que aumenta significativamente con la temperatura. Este efecto
+es causado por la generación térmica de portadores minoritarios, lo que incrementa la
+conducción inversa del diodo.
+
+Para el caso del diodo 1N60, se aprecia además una mayor sensibilidad a la temperatura
+en comparación con el 1N4007, presentando un aumento más notorio de la corriente
+inversa y una variación más visible en la zona de conducción. Esto se relaciona con las
+características propias de los diodos de germanio, los cuales poseen menores tensiones
+de conducción y mayores corrientes de fuga.
+
+En conclusión, la temperatura incrementa la corriente tanto en directa como en inversa,
+afectando directamente el comportamiento ideal del diodo.
+
+\section{Circuitos recortadores con diodos zener}
+
+\subsection{Recortador con diodos zener modelo 1}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/recortadores-zener-1.png}
+    \caption{}
+    \label{fig:recortadores-zener-1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-23,
+    ymax=23,
+    xmin=0,
+    xmax=60,
+    xlabel={$t$ [ms]},
+    ylabel={$V$ [v]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+
+% V1 tension de entrada
+\addplot[
+    ultra thick,
+    blue
+]
+table[
+    col sep=tab,
+    header=true,
+    y index=1,
+    x expr=\thisrowno{0}*1000
+] {dataTex/recortadores1-v1};
+
+% V0 ,tension salida
+\addplot[
+    ultra thick,
+    red
+]
+table[
+    col sep=tab,
+    header=true,
+    y index=1,
+    x expr=\thisrowno{0}*1000
+] {dataTex/recortadores1-v0};
+
+\legend{V1, V0}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación de curvas características}
+\end{figure}
+
+\subsection{Recortador con diodos zener modelo 2}
+%Aqui va figura
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/recortadores-zener-2.png}
+    \caption{}
+    \label{fig:recortadores-zener-2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=14cm,
+    height=9cm,
+    ymin=-23,
+    ymax=23,
+    xmin=0,
+    xmax=60,
+    xlabel={$t$ [ms]},
+    ylabel={$V$ [v]},
+    grid=major,
+    minor tick num=1,
+    grid=both,
+]
+
+% V1 tension de entrada
+\addplot[
+    ultra thick,
+    blue
+]
+table[
+    col sep=tab,
+    header=true,
+    y index=1,
+    x expr=\thisrowno{0}*1000
+] {dataTex/recortadores2-v1};
+
+% V0 ,tension salida
+\addplot[
+    ultra thick,
+    red
+]
+table[
+    col sep=tab,
+    header=true,
+    y index=1,
+    x expr=\thisrowno{0}*1000
+] {dataTex/recortadores2-v0};
+
+\legend{V1, V0}
+
+\end{axis}
+\end{tikzpicture}
+\caption{Comparación de curvas características}
+\end{figure}
+
+En las simulaciones se comprobó el funcionamiento de los diodos zener como recortadores
+de tensión en corriente alterna. La señal de salida quedó limitada a valores cercanos a las
+tensiones zener utilizadas, observándose además que la orientación de los diodos modifica
+los niveles de recorte positivo y negativo. Los resultados obtenidos coincidieron con el
+comportamiento teórico  desarrollados en la sección 2.2 .
