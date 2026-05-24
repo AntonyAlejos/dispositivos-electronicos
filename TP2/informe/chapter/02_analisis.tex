@@ -150,6 +150,7 @@ $V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
 \end{tabular}
 \end{table}
 
+
 \section{Circuitos Recortadores con Zener}
 
 En esta sección se realizará el análisis de circuitos recortadores utilizando diodos zener. Se estudiará el comportamiento de la tensión de salida durante los semiciclos positivo y negativo de la señal de entrada, 
@@ -200,8 +201,6 @@ V_{out} = V_{in}
 \]
 Cuando $V_{in} < -5.8V$
 el diodo zener de $5.1V$ entra en ruptura y comienza el recorte de la señal.
-
-Forma de onda
 
 \begin{figure}[H]
     \centering
@@ -264,14 +263,16 @@ Por lo tanto, la salida queda limitada aproximadamente a:
 \[
 \boxed{V_{out} \approx -12.7V}
 \]
-Forma De onda
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{img/formaOndaB.png}
     \caption{Forma de onda Circuito b}
     \label{fig:ZenerB}
 \end{figure}
-\subsection*{Características Eléctricas}
+
+\section{Análisis sobre parámetros de hoja de datos}
+\subsection{Características Eléctricas}
 
 \subsubsection*{Regímenes máximos}
 
@@ -289,57 +290,25 @@ Forma De onda
 \end{itemize}
 
 
-\[
-\begin{array}{|c|c|c|}
-\hline
-\textbf{Parámetro} & \textbf{1N4007} & \textbf{1N60} \\
-\hline
-V_{RRM} & 1000V & 45V \\
-\hline
-V_{RSM} & 700V & 50V \\
-\hline
-I_{FRMS} & 1A & 30mA \\
-\hline
-I_{FSM} & 30A & 300mA \\
-\hline
-\end{array}
-\]
 \subsubsection*{Regímenes característicos}
 
 \begin{itemize}
 
-    \item $V_{BR}$: Tensión de ruptura.  
-    Es la tensión inversa a partir de la cual el diodo entra en ruptura.  
+    \item $V_{BR}$: Tensión de ruptura.
+    Tensión inversa donde  el diodo entra en ruptura.  
     \item $I_R$: Corriente inversa.  
-    Es la pequeña corriente que circula cuando el diodo está polarizado en inversa.  
+    Pequeña corriente que circula en polarización inversa.  
     \item $V_F$: Tensión directa.  
-    Representa la caída de tensión del diodo cuando conduce en polarización directa.  
+    Caída de tensión del diodo cuando conduce en directa. 
     \item $I_{RM}$: Corriente inversa máxima.  
-    Máxima corriente inversa permitida sin comprometer el funcionamiento del dispositivo.  
+    Máxima corriente inversa permitida. 
     \item $I_F$: Corriente directa.  
-    Corriente que circula por el diodo cuando está polarizado en directa.  
+    Corriente que circula cuando está polarizado en directa.  
 
 \end{itemize}
 
-\[
-\begin{array}{|c|c|c|}
-\hline
-\textbf{Parámetro} & \textbf{1N4007} & \textbf{1N60} \\
-\hline
-V_{BR} & 1000V & 45V \\
-\hline
-I_R & 5\mu A & 0.5mA \\
-\hline
-V_F & 1.1V & 0.35V \\
-\hline
-I_{RM} & 5\mu A & 0.5mA \\
-\hline
-I_F & 1A & 50mA \\
-\hline
-\end{array}
-\]
 
-\subsection*{Características Térmicas}
+\subsection{Características Térmicas}
 
 \begin{itemize}
 
@@ -354,42 +323,14 @@ I_F & 1A & 50mA \\
 
 \end{itemize}
 
-\[
-\begin{array}{|c|c|c|}
-\hline
-\textbf{Parámetro} & \textbf{1N4007} & \textbf{1N60} \\
-\hline
-T_J & 150^\circ C & 75^\circ C \\
-\hline
-T_{STG} & -65^\circ C \text{ a } 150^\circ C & -55^\circ C \text{ a } 100^\circ C \\
-\hline
-T_A & 25^\circ C & 25^\circ C \\
-\hline
-R_{\theta JC} & 20^\circ C/W & 200^\circ C/W \\
-\hline
-\end{array}
-\]
-\subsection*{Características de uso}
+\subsection{Características de uso}
 
 \begin{itemize}
 
     \item $V_{RMS}$: Tensión eficaz máxima.  
     Máximo valor RMS de tensión inversa aplicable al diodo. 
-    \item $P_{tot}$: Potencia total disipada.  
+    \item $P_{tot}$: Potencia total disipada.
     Máxima potencia que el dispositivo puede disipar sin dañarse.  
     \item $T_{rr}$: Tiempo de recuperación inversa.  
     Tiempo necesario para que el diodo deje de conducir al pasar de directa a inversa.  
 \end{itemize}
-\[
-\begin{array}{|c|c|c|}
-\hline
-\textbf{Parámetro} & \textbf{1N4728} & \textbf{1N4764} \\
-\hline
-V_{RMS} & 3.3V & 100V \\
-\hline
-P_{tot} & 1W & 1W \\
-\hline
-T_{rr} & \text{No especificado} & \text{No especificado} \\
-\hline
-\end{array}
-\]
