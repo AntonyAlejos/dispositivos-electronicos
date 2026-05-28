@@ -1,1 +1,336 @@
 \chapter{Análisis del Circuito}
+\section{Polarización del Diodo}
+En esta actividad se realizará el análisis de polarización de un diodo utilizando un circuito compuesto por una fuente de tensión variable, una resistencia
+ y un diodo conectados en serie. El objetivo es determinar el comportamiento del diodo para distintos valores de tensión de entrada aplicando la Ley de
+ Tensiones de Kirchhoff (LTK).
+
+A partir del circuito propuesto se calcularán la tensión en el diodo ($V_D$), la corriente que circula por él ($I_D$) y la potencia disipada ($P_D$).
+ El análisis se efectuará considerando los distintos modelos estudiados para el diodo: ideal, simplificado y lineal.
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{img/Analisis.png}
+    \caption{Circuito de polarización del diodo.}
+    \label{fig:diodo}
+ \end{figure}
+
+\subsection{Modelo ideal}
+En el modelo ideal, el diodo se comporta como un cortocircuito cuando está polarizado en directa y como un circuito abierto cuando está polarizado en inversa.
+
+\begin{itemize}
+    \item En directa:$V_D=0V$ 
+    \item En inversa: circuito abierto
+\end{itemize}
+
+Entonces, la corriente del diodo queda:
+\[
+I_D = \frac{V_1}{1000}
+\]
+\begin{table}[H]
+\centering
+\caption{Cálculos para Diodo de Silicio 1N4007.}
+\begin{tabular}{c c c c}
+\hline
+$V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
+\hline
+0,5 &0 & 0,5&0 \\
+1,0 &0 & 1&0 \\
+3,0 &0 & 3&0 \\
+5,0 &0 & 5&0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.5cm}
+
+\begin{table}[H]
+\centering
+\caption{Cálculos para Diodo de Germanio 1N60.}
+\begin{tabular}{c c c c}
+\hline
+$V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
+\hline
+0,2 &0 &0,2 &0 \\
+0,5 &0 &0,5 &0 \\
+1,0 &0 &1 &0 \\
+3,0 &0 &3 &0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Modelo simplificado}
+
+En el modelo simplificado se considera una caída de tensión fija en el diodo cuando conduce.
+
+Para el diodo de Silicio 1N4007 se considera $V_D \approx 0.7V$, mientras que para el diodo de Germanio 1N60 se utiliza $V_D \approx 0.3V$.
+Entonces, la corriente del diodo queda:
+
+\[
+I_D = \frac{V_1 - V_D}{1000}
+\]
+
+Siempre que:$V_1 > V_D$.
+En caso contrario:$I_D = 0$(Se lo considera como una llave abierta.)
+\begin{table}[H]
+\centering
+\caption{Cálculos para Diodo de Silicio 1N4007.}
+\begin{tabular}{c c c c}
+\hline
+$V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
+\hline
+0,5 &0 &0&0 \\
+1,0 &0,7 &0,3 &0,21 \\
+3,0 &0,7 &2,3&1,61 \\
+5,0 &0,7 &4,3&3,01 \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.5cm}
+
+\begin{table}[H]
+\centering
+\caption{Cálculos para Diodo de Germanio 1N60.}
+\begin{tabular}{c c c c}
+\hline
+$V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
+\hline
+0,2 &0 &0 &0 \\
+0,5 &0,3 &0,2 &0,06 \\
+1,0 &0,3 &0,7 &0,21 \\
+3,0 &0,3 &2,7 &0,81 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Modelo lineal}
+
+En el modelo lineal, además de la caída de tensión fija, se considera una resistencia interna del diodo:
+
+\[
+V_D = V_{\gamma} + I_D r_d
+\]
+
+Para el diodo de Silicio se toma generalmente $V_{\gamma}=0.7V$ y $r_d \approx 10\Omega$, mientras que para el diodo de Germanio se utiliza $V_{\gamma}=0.3V$ y $r_d \approx 5\Omega$.
+
+Entonces, la corriente del diodo queda:
+
+\[
+I_D = \frac{V_1 - V_{\gamma}}{R_1 + r_d}
+\]
+\begin{table}[H]
+\centering
+\caption{Cálculos para Diodo de Silicio 1N4007.}
+\begin{tabular}{c c c c}
+\hline
+$V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
+\hline
+0,5 &0 &0&0 \\
+1,0 &0,7 &0,29 &0,20 \\
+3,0 &0,7 &2,27&1,59 \\
+5,0 &0,7 &4,25&2,98 \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.5cm}
+
+\begin{table}[H]
+\centering
+\caption{Cálculos para Diodo de Germanio 1N60.}
+\begin{tabular}{c c c c}
+\hline
+$V_1$ [V] & $V_D$ [V] & $I_D$ [mA] & $P_D$ [mW] \\
+\hline
+0,2 &0 &0 &0 \\
+0,5 &0,3 &0,199 &0,1 \\
+1,0 &0,3 &0,697 &0,209 \\
+3,0 &0,3 &2,687 &0,806 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\section{Circuitos Recortadores con Zener}
+
+En esta sección se realizará el análisis de circuitos recortadores utilizando diodos zener. Se estudiará el comportamiento de la tensión de salida durante los semiciclos positivo y negativo de la señal de entrada, 
+identificando qué diodo conduce en cada caso. Además, se graficarán las formas de onda de entrada y salida para observar el efecto de recorte producido por los diodos zener.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/Analisis2.png}
+    \caption{Circuitos recortadores con diodos zener.}
+    \label{fig:zener}
+\end{figure}
+
+\subsection{Circuito a)}
+Durante el semiciclo positivo, el diodo zener de $5.1V$ queda polarizado en directa, comportándose como un diodo convencional con una caída aproximada de $0.7V$. Por otro lado, el diodo zener de $20V$ queda polarizado en inversa.
+
+Por lo tanto, la tensión mínima necesaria para que el circuito entre en la región de recorte es:
+
+\[
+V_{out} \approx 20V + 0.7V\approx 20.7
+\]
+
+Si    $V_{in} < 20.7V$
+el diodo zener de $20V$ todavía no alcanza la región zener, por lo que se comporta como un diodo polarizado en inversa y la corriente 
+es aproximadamente nula ($I_D \approx 0A$).
+
+
+Aplicando LTK:
+
+\[
+V_{in} + I_D R - V_{out} = 0\]
+\[V_{out} = V_{in}\]
+
+Cuando $V_{in} > 20.7V$el diodo zener entra en ruptura y comienza el recorte de la señal.
+
+Durante el semiciclo negativo, el diodo zener de $20V$ queda polarizado en directa, mientras que el diodo zener de $5.1V$ queda polarizado en inversa.
+
+La tensión de recorte resulta:
+\[
+V_{sal} \approx -(5.1V + 0.7V)
+\]
+\[
+V_{sal} \approx -5.8V
+\]
+Si $V_{in} > -5.8V$
+los diodos no entran en conducción y:
+\[
+V_{out} = V_{in}
+\]
+Cuando $V_{in} < -5.8V$
+el diodo zener de $5.1V$ entra en ruptura y comienza el recorte de la señal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/forma onda a.png}
+    \caption{Forma de onda Circuito a}
+    \label{fig:ZenerA}
+\end{figure}
+
+
+
+\subsection{Circuito b)}
+
+Durante el semiciclo positivo, el diodo zener de $12V$ queda polarizado en directa, comportándose como un diodo convencional con una caída aproximada de $0.7V$. Por otro lado, el diodo zener de $6.8V$ queda polarizado en inversa.
+
+Por lo tanto, la tensión mínima necesaria para que el circuito entre en la región de recorte es:
+
+\[
+V_{out} \approx 6.8V + 0.7V
+\]
+\[
+V_{out} \approx 7.5V
+\]
+
+Si:$V_{in} < 7.5V$el diodo zener de $6.8V$ todavía no alcanza la región zener, por lo que se comporta como un diodo polarizado en inversa y$I_D \approx 0A$
+
+Aplicando LTK:
+\[
+V_{in} + I_D R - V_{out} = 0
+\]
+\[
+V_{out} = V_{in}
+\]
+
+Cuando $V_{in} > 7.5V$ el diodo zener de $6.8V$ entra en ruptura y comienza el recorte de la señal.
+Por lo tanto, la salida queda limitada aproximadamente a:
+
+\[
+\boxed{V_{out} \approx 7.5V}
+\]
+Durante el semiciclo negativo, el diodo zener de $6.8V$ queda polarizado en directa, comportándose como un diodo convencional con una caída aproximada de $0.7V$. Por otro lado, el diodo zener de $12V$ queda polarizado en inversa.
+
+La tensión de recorte resulta:
+
+\[
+V_{sal} \approx -(12V + 0.7V)
+\]
+\[
+V_{sal} \approx -12.7V
+\]
+
+Si$V_{in} > -12.7V$
+los diodos no entran en conducción y:
+\[
+V_{out} = V_{in}
+\]
+
+Cuando $V_{in} < -12.7V$ el diodo zener de $12V$ entra en ruptura y comienza el recorte de la señal.
+Por lo tanto, la salida queda limitada aproximadamente a:
+
+\[
+\boxed{V_{out} \approx -12.7V}
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/formaOndaB.png}
+    \caption{Forma de onda Circuito b}
+    \label{fig:ZenerB}
+\end{figure}
+
+\section{Análisis sobre parámetros de hoja de datos}
+\subsection{Características Eléctricas}
+
+\subsubsection*{Regímenes máximos}
+
+\begin{itemize}
+
+    \item $V_{RRM}$: Tensión inversa repetitiva máxima.  
+    Es la máxima tensión inversa que el diodo puede soportar repetidamente sin dañarse.  
+    \item $V_{RSM}$: Tensión inversa no repetitiva máxima.  
+    Es la máxima tensión inversa instantánea que el diodo soporta durante transitorios.  
+    \item $I_{FRMS}$: Corriente directa eficaz máxima.  
+    Es la máxima corriente RMS permitida en conducción directa. 
+    \item $I_{FSM}$: Corriente de sobrecarga máxima.  
+    Corriente pico no repetitiva soportada durante un corto intervalo de tiempo. 
+
+\end{itemize}
+
+
+\subsubsection*{Regímenes característicos}
+
+\begin{itemize}
+
+    \item $V_{BR}$: Tensión de ruptura.
+    Tensión inversa donde  el diodo entra en ruptura.  
+    \item $I_R$: Corriente inversa.  
+    Pequeña corriente que circula en polarización inversa.  
+    \item $V_F$: Tensión directa.  
+    Caída de tensión del diodo cuando conduce en directa. 
+    \item $I_{RM}$: Corriente inversa máxima.  
+    Máxima corriente inversa permitida. 
+    \item $I_F$: Corriente directa.  
+    Corriente que circula cuando está polarizado en directa.  
+
+\end{itemize}
+
+
+\subsection{Características Térmicas}
+
+\begin{itemize}
+
+    \item $T_J$: Temperatura de juntura.  
+    Temperatura máxima permitida en la unión interna del semiconductor.  
+    \item $T_{STG}$: Temperatura de almacenamiento.  
+    Rango de temperaturas permitido para almacenar el dispositivo.  
+    \item $T_A$: Temperatura ambiente.  
+    Temperatura del entorno donde opera el dispositivo.  
+    \item $R_{\theta JC}$: Resistencia térmica juntura-carcasa.  
+    Indica la dificultad para disipar calor desde la juntura hacia la carcasa.  
+
+\end{itemize}
+
+\subsection{Características de uso}
+
+\begin{itemize}
+
+    \item $V_{RMS}$: Tensión eficaz máxima.  
+    Máximo valor RMS de tensión inversa aplicable al diodo. 
+    \item $P_{tot}$: Potencia total disipada.
+    Máxima potencia que el dispositivo puede disipar sin dañarse.  
+    \item $T_{rr}$: Tiempo de recuperación inversa.  
+    Tiempo necesario para que el diodo deje de conducir al pasar de directa a inversa.  
+\end{itemize}
